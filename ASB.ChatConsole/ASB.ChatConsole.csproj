@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4DC1B830-FBF2-401C-9A94-F10A5E2C8857}</ProjectGuid>
+    <ProjectGuid>{40464157-FEE0-47FC-82D8-1DE660B27E67}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ASB.SenderConsole</RootNamespace>
-    <AssemblyName>ASB.SenderConsole</AssemblyName>
+    <RootNamespace>ASB.ChatConsole</RootNamespace>
+    <AssemblyName>ASB.ChatConsole</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -60,10 +60,6 @@
     <ProjectReference Include="..\ASB.Constants\ASB.Constants.csproj">
       <Project>{d22abbd5-d084-414d-99e4-5facb7fb147a}</Project>
       <Name>ASB.Constants</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ASB\ASB.csproj">
-      <Project>{c5ab31f4-84ce-4fc8-b150-9e74987010e0}</Project>
-      <Name>ASB</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
