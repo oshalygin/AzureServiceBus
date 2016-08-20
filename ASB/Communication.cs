@@ -28,21 +28,22 @@ namespace ASB
 
         public void RetrievAllMessagesFromTheQueue()
         {
+            Console.WriteLine("started");
             var queueClient = QueueClient.CreateFromConnectionString(ConnectionString, QueuePath);
-                queueClient.OnMessage(ProcessMessage);
-                
-            Console.WriteLine("All Messages received");
-            Thread.Sleep(1000);
+            for (var i = 0; i < 5; i++)
+            {
+                Console.WriteLine("processing");
+                Task.WaitAll(queueClient.ReceiveAsync().ContinueWith(ProcessMessageAsync));
+
+            }
             queueClient.Close();
+            Console.WriteLine("done");
         }
 
-        private void ProcessMessage(BrokeredMessage message)
-        {
-            Console.WriteLine($"{message.MessageId} - {message.GetBody<string>()}");
-        }
 
-        private async void ProcessReceivedMessage(Task<BrokeredMessage> brokeredMessageTask)
+        private async void ProcessMessageAsync(Task<BrokeredMessage> brokeredMessageTask)
         {
+            Console.WriteLine("in here");
             var message = brokeredMessageTask.Result;
             Console.WriteLine($"{message.MessageId} - {message.GetBody<string>()}");
             await message.CompleteAsync();
@@ -50,13 +51,17 @@ namespace ASB
 
         private async void ProcessBatch(Task<IEnumerable<BrokeredMessage>> brokeredMessageTask)
         {
-            var messages = brokeredMessageTask.Result;
-            foreach (var message in messages)
-            {
-                Console.WriteLine($"{message.MessageId} - {message.GetBody<string>()}");
-                
-            }
-            
+            await brokeredMessageTask.ContinueWith(result =>
+                {
+                    var messages = result.Result;
+                    Console.WriteLine(messages.Count());
+                    foreach (var message in messages)
+                    {
+                        Console.WriteLine($"{message.MessageId} - {message.GetBody<string>()}");
+                        message.Complete();
+                    }
+                }
+            );
         }
     }
 }
