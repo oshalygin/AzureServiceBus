@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4DC1B830-FBF2-401C-9A94-F10A5E2C8857}</ProjectGuid>
+    <ProjectGuid>{3DAE6A35-804E-4FB8-B455-E6C65281D407}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ASB.SenderConsole</RootNamespace>
-    <AssemblyName>ASB.SenderConsole</AssemblyName>
+    <RootNamespace>ASB.ForwardingConsole</RootNamespace>
+    <AssemblyName>ASB.ForwardingConsole</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -49,7 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SenderApplication.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -61,12 +61,8 @@
       <Project>{d22abbd5-d084-414d-99e4-5facb7fb147a}</Project>
       <Name>ASB.Constants</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ASB\ASB.csproj">
-      <Project>{c5ab31f4-84ce-4fc8-b150-9e74987010e0}</Project>
-      <Name>ASB</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DataContracts\DataContracts.csproj">
-      <Project>{C2178556-B61B-4E45-B825-5000754E73CD}</Project>
+      <Project>{c2178556-b61b-4e45-b825-5000754e73cd}</Project>
       <Name>DataContracts</Name>
     </ProjectReference>
   </ItemGroup>

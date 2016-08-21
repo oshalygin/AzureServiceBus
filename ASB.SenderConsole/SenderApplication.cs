@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ASB.Constants;
 using DataContracts;
+using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
 
 namespace ASB.SenderConsole
@@ -13,6 +14,7 @@ namespace ASB.SenderConsole
         {
             Console.WriteLine("Sender Application - Hit enter");
             Console.ReadLine();
+
 
             Console.WriteLine("Sender Application - Complete");
             Console.ReadLine();
@@ -102,7 +104,6 @@ namespace ASB.SenderConsole
             }
 
             client.Close();
-
         }
 
         static void SendPizzaOrder()
@@ -154,6 +155,13 @@ namespace ASB.SenderConsole
             Console.WriteLine("Sending Batch!");
             Task.WaitAll(taskList.ToArray());
             Console.WriteLine("Sent batch!");
+        }
+
+        private static void CreateQueue(string queueName)
+        {
+            var namespaceManager = NamespaceManager.CreateFromConnectionString(Mother.ConnectionString);
+            var createdQueue = namespaceManager.CreateQueue(queueName);
+            Console.WriteLine($"Created {createdQueue.Path}");
 
         }
     }

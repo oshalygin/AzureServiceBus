@@ -61,6 +61,10 @@
       <Project>{d22abbd5-d084-414d-99e4-5facb7fb147a}</Project>
       <Name>ASB.Constants</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataContracts\DataContracts.csproj">
+      <Project>{C2178556-B61B-4E45-B825-5000754E73CD}</Project>
+      <Name>DataContracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
