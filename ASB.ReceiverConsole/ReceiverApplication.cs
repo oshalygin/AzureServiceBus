@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 using ASB.Constants;
-using DataContracts;
+using ASB.Models;
 using Microsoft.ServiceBus.Messaging;
 using Newtonsoft.Json;
 
@@ -34,7 +34,7 @@ namespace ASB.ReceiverConsole
                         Console.WriteLine($"Content: {content}");
                         Console.WriteLine($"Type: {orderMessage.Label}");
                         Console.WriteLine();
-                        if (orderMessage.Label == "DataContracts.PizzaOrder")
+                        if (orderMessage.Label == "ASB.Models.PizzaOrder")
                         {
                             var order = JsonConvert.DeserializeObject<PizzaOrder>(content);
                             Console.WriteLine("Order Details v2:");
