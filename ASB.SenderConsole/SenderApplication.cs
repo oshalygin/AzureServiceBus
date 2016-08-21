@@ -5,6 +5,10 @@ using ASB.Constants;
 using DataContracts;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
+using Microsoft.SqlServer.Server;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 namespace ASB.SenderConsole
 {
@@ -14,8 +18,13 @@ namespace ASB.SenderConsole
         {
             Console.WriteLine("Sender Application - Hit enter");
             Console.ReadLine();
-
-            SendTextString("Hello world", false);
+            SendJsonMessage(new PizzaOrder
+            {
+                CustomerName = "Carlota Turcios",
+                Size = "Large",
+                Type = "Hawaiian"
+            });
+           //SendPizzaOrderBatch();
             Console.WriteLine();
             Console.WriteLine("Sender Application - Complete");
             Console.ReadLine();
@@ -46,7 +55,6 @@ namespace ASB.SenderConsole
                             .SendAsync(message)
                             .ContinueWith(task => Console.WriteLine($"Sent: {message.Label}")));
                 }
-
             }
             if (!sendSync)
             {
@@ -160,6 +168,29 @@ namespace ASB.SenderConsole
             var namespaceManager = NamespaceManager.CreateFromConnectionString(Mother.ConnectionString);
             var createdQueue = namespaceManager.CreateQueue(queueName);
             Console.WriteLine($"Created {createdQueue.Path}");
+        }
+
+        private static void SendJsonMessage(object content)
+        {
+            var settings = new JsonSerializerSettings()
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                Converters = new List<JsonConverter> {new StringEnumConverter()}
+            };
+
+            var json = JsonConvert.SerializeObject(content, settings);
+
+            Console.WriteLine($"Json Content: {json}");
+            var message = new BrokeredMessage(json)
+            {
+                ContentType = @"application/json",
+                Label = content.GetType().ToString()
+            };
+            Console.WriteLine("Sending message...");
+            var client = QueueClient.CreateFromConnectionString(Mother.ConnectionString, Mother.QueuePath);
+            client.Send(message);
+            Console.WriteLine("Sent Message!");
+            client.Close();
         }
     }
 }

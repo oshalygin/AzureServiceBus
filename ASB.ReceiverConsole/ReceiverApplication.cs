@@ -3,6 +3,7 @@ using System.Threading;
 using ASB.Constants;
 using DataContracts;
 using Microsoft.ServiceBus.Messaging;
+using Newtonsoft.Json;
 
 namespace ASB.ReceiverConsole
 {
@@ -13,10 +14,37 @@ namespace ASB.ReceiverConsole
         {
             Console.WriteLine("Receiver Console - Press Enter");
             Console.ReadLine();
-            ReceiveAndProcessCharacters(3);
-            //SimplePizzaReceiverLoop();
+            ProcessOrderMessages();
             Console.WriteLine("Ending Receiver...Press any key");
             Console.ReadLine();
+        }
+
+        private static void ProcessOrderMessages()
+        {
+            var client = QueueClient.CreateFromConnectionString(Mother.ConnectionString, Mother.QueuePath);
+            while (true)
+            {
+                var orderMessage = client.Receive();
+                if (orderMessage != null)
+                {
+                    Console.WriteLine("Received Message.");
+                    if (orderMessage.ContentType == "application/json")
+                    {
+                        var content = orderMessage.GetBody<string>();
+                        Console.WriteLine($"Content: {content}");
+                        Console.WriteLine($"Type: {orderMessage.Label}");
+                        Console.WriteLine();
+                        if (orderMessage.Label == "DataContracts.PizzaOrder")
+                        {
+                            var order = JsonConvert.DeserializeObject<PizzaOrder>(content);
+                            Console.WriteLine("Order Details v2:");
+                            Console.WriteLine($"\t {order.CustomerName}");
+                            Console.WriteLine($"\t {order.Type}");
+                            Console.WriteLine($"\t {order.Size}");
+                        }
+                    }
+                }
+            }
         }
 
         private static void SimplePizzaReceiverLoop()
@@ -34,6 +62,37 @@ namespace ASB.ReceiverConsole
                     {
                         var order = message.GetBody<PizzaOrder>();
                         CookPizza(order);
+                        message.Complete();
+                    }
+                    catch (Exception exception)
+                    {
+                        Console.WriteLine(exception.Message);
+                        message.Abandon();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Nothing in the queue...");
+                }
+            }
+
+        }
+
+        private static void ReceiverLoop()
+        {
+            Console.WriteLine("Receiving...");
+
+            _client = QueueClient.CreateFromConnectionString(Mother.ConnectionString, Mother.QueuePath);
+
+            while (true)
+            {
+                var message = _client.Receive(TimeSpan.FromSeconds(5));
+                if (message != null)
+                {
+                    try
+                    {
+                        var order = message.GetBody<string>();
+                        Console.WriteLine($"Received: {order}");
                         message.Complete();
                     }
                     catch (Exception exception)
