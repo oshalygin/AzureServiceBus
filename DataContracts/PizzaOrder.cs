@@ -1,4 +1,4 @@
-﻿namespace DataContracts
+﻿namespace ASB.Models
 {
     public class PizzaOrder
     {
