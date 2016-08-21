@@ -12,9 +12,12 @@ namespace ASB.ReceiverConsole
         private static QueueClient _client;
         static void Main(string[] args)
         {
-            Console.WriteLine("Receiver Console - Press Enter");
+            Console.WriteLine("Receiver Aplication - Press Enter");
             Console.ReadLine();
-            ProcessOrderMessages();
+            //SimplePizzaReceiverLoop();
+            //ProcessOrderMessages();
+
+            ReceiveAndProcessOrderWithOnMessage(3);
             Console.WriteLine("Ending Receiver...Press any key");
             Console.ReadLine();
         }
@@ -24,7 +27,7 @@ namespace ASB.ReceiverConsole
             var client = QueueClient.CreateFromConnectionString(Mother.ConnectionString, Mother.QueuePath);
             while (true)
             {
-                var orderMessage = client.Receive();
+                var orderMessage = client.Peek();
                 if (orderMessage != null)
                 {
                     Console.WriteLine("Received Message.");

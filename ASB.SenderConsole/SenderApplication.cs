@@ -17,13 +17,13 @@ namespace ASB.SenderConsole
         {
             Console.WriteLine("Sender Application - Hit enter");
             Console.ReadLine();
-            SendJsonMessage(new PizzaOrder
-            {
-                CustomerName = "Carlota Turcios",
-                Size = "Large",
-                Type = "Hawaiian"
-            });
-           //SendPizzaOrderBatch();
+            //SendJsonMessage(new PizzaOrder
+            //{
+            //    CustomerName = "Carlota Turcios",
+            //    Size = "Large",
+            //    Type = "Hawaiian"
+            //});
+            SendPizzaOrderBatch();
             Console.WriteLine();
             Console.WriteLine("Sender Application - Complete");
             Console.ReadLine();
