@@ -3,7 +3,7 @@ using Microsoft.ServiceBus.Messaging;
 
 namespace ASB.ReceiverConsole
 {
-    class Program
+    class ReceiverApplication
     {
         static void Main(string[] args)
         {

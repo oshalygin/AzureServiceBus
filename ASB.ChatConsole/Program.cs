@@ -12,7 +12,7 @@ namespace ASB.ChatConsole
             Console.Write("Enter your name: ");
             var userName = Console.ReadLine();
 
-            var manager = NamespaceManager.CreateFromConnectionString(Constants.Mother.ConnectionString);
+            var manager = NamespaceManager.CreateFromConnectionString(Mother.ConnectionString);
             if (!manager.TopicExists(Mother.TopicPath))
             {
                 manager.CreateTopic(Mother.TopicPath);
