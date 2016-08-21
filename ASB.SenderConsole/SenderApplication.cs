@@ -15,7 +15,8 @@ namespace ASB.SenderConsole
             Console.WriteLine("Sender Application - Hit enter");
             Console.ReadLine();
 
-
+            SendTextString("Hello world", false);
+            Console.WriteLine();
             Console.WriteLine("Sender Application - Complete");
             Console.ReadLine();
         }
@@ -36,7 +37,7 @@ namespace ASB.SenderConsole
                 if (sendSync)
                 {
                     client.Send(message);
-                    Console.WriteLine(message.Label);
+                    Console.Write(message.Label);
                 }
                 else
                 {
@@ -46,18 +47,15 @@ namespace ASB.SenderConsole
                             .ContinueWith(task => Console.WriteLine($"Sent: {message.Label}")));
                 }
 
-                if (!sendSync)
-                {
-                    Console.WriteLine("Waiting...");
-                    Task.WaitAll(taskList.ToArray());
-                    Console.WriteLine("Complete");
-                }
-
-                Console.ReadLine();
-                Console.WriteLine();
-
-                client.Close();
             }
+            if (!sendSync)
+            {
+                Console.WriteLine("Waiting...");
+                Task.WaitAll(taskList.ToArray());
+                Console.WriteLine("Completed Async");
+            }
+
+            client.Close();
         }
 
         static void SlideCode()
@@ -162,7 +160,6 @@ namespace ASB.SenderConsole
             var namespaceManager = NamespaceManager.CreateFromConnectionString(Mother.ConnectionString);
             var createdQueue = namespaceManager.CreateQueue(queueName);
             Console.WriteLine($"Created {createdQueue.Path}");
-
         }
     }
 }

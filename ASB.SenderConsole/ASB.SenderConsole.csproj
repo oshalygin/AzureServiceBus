@@ -65,9 +65,9 @@
       <Project>{c5ab31f4-84ce-4fc8-b150-9e74987010e0}</Project>
       <Name>ASB</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataContracts\DataContracts.csproj">
+    <ProjectReference Include="..\DataContracts\ASB.Models.csproj">
       <Project>{C2178556-B61B-4E45-B825-5000754E73CD}</Project>
-      <Name>DataContracts</Name>
+      <Name>ASB.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

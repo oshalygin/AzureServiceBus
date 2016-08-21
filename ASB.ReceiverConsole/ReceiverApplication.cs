@@ -13,7 +13,8 @@ namespace ASB.ReceiverConsole
         {
             Console.WriteLine("Receiver Console - Press Enter");
             Console.ReadLine();
-            SimplePizzaReceiverLoop();
+            ReceiveAndProcessCharacters(3);
+            //SimplePizzaReceiverLoop();
             Console.WriteLine("Ending Receiver...Press any key");
             Console.ReadLine();
         }

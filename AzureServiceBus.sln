@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASB.ChatConsole", "ASB.Chat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASB.ManagementConsole", "ASB.ManagementConsole\ASB.ManagementConsole.csproj", "{4F90A796-E3F5-44CE-BC22-4B2559446E4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataContracts", "DataContracts\DataContracts.csproj", "{C2178556-B61B-4E45-B825-5000754E73CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASB.Models", "DataContracts\ASB.Models.csproj", "{C2178556-B61B-4E45-B825-5000754E73CD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASB.ForwardingConsole", "ASB.ForwardingConsole\ASB.ForwardingConsole.csproj", "{3DAE6A35-804E-4FB8-B455-E6C65281D407}"
 EndProject
