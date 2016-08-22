@@ -8,5 +8,6 @@
         public static string QueuePath = "first-queue";
         public static string ForwardingPath = "forwarded-queue";
         public static string TopicPath = "chattopic";
+        public static string OrderTopic = "order-topic";
     }
 }
